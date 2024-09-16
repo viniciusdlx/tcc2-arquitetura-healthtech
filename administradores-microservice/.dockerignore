@@ -1,0 +1,7 @@
+node_modules
+dist
+data
+redis-data
+Dockerfile
+Dockerfile.prod
+.dockerignore
