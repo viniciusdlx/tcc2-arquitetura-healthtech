@@ -19,3 +19,11 @@ npm i --save class-validator class-transformer
 ```
 npm install --save @nestjs/swagger
 ```
+
+```
+npm i --save @nestjs/axios axios
+```
+
+```
+npm i --save dayjs
+```

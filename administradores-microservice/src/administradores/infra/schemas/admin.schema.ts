@@ -7,9 +7,9 @@ import {
 } from 'typeorm';
 
 @Entity('administrador')
-export class AdministradorSchema {
-  @PrimaryGeneratedColumn({ type: 'int' })
-  id: number;
+export class AdminSchema {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({
     name: 'nome',
@@ -42,9 +42,9 @@ export class AdministradorSchema {
   @Column({ name: 'data_nascimento', type: 'date' })
   dataNascimento: Date;
 
-  @CreateDateColumn({ name: 'data_criacao', type: 'datetime' })
+  @CreateDateColumn({ name: 'data_criacao' })
   dataCriacao: Date;
 
-  @UpdateDateColumn({ name: 'data_atualizacao', type: 'datetime' })
+  @UpdateDateColumn({ name: 'data_atualizacao' })
   dataAtualizacao: Date;
 }
