@@ -5,21 +5,6 @@ import { AppModule } from './app.module';
 import { GlobalExceptionFilter } from './config/exceptions/global-exception.filter';
 
 async function bootstrap() {
-  // const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-  //   AppModule,
-  //   {
-  //     transport: Transport.TCP,
-  //     options: {
-  //       host: 'localhost',
-  //       port: 3000,
-  //     },
-  //   },
-  // );
-
-  // console.log('app -> ', app);
-
-  // await app.listen();
-
   const app = await NestFactory.create(AppModule);
 
   app.enableCors();
@@ -52,7 +37,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  app.enableCors();
   await app.listen(3000);
 }
 bootstrap();

@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('administrador')
+@Entity('administradores')
 export class AdminSchema {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -22,6 +22,7 @@ export class AdminSchema {
     name: 'cpf',
     type: 'varchar',
     length: 11,
+    unique: true,
   })
   cpf: string;
 
@@ -29,13 +30,14 @@ export class AdminSchema {
     name: 'email',
     type: 'varchar',
     length: 255,
+    unique: true,
   })
   email: string;
 
   @Column({
     name: 'telefone',
     type: 'varchar',
-    length: 14, //+55 48 9 9999 9999
+    length: 11, //48 9 9999 9999
   })
   telefone: string;
 

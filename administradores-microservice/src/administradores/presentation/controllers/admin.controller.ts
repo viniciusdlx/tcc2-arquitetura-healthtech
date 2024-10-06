@@ -20,8 +20,8 @@ import { IAdminService } from 'src/administradores/domain/interfaces/admin-servi
 import { AdministradorOutputDto } from '../dtos/administrador-output.dto';
 import { CreateAdministradorDto } from '../dtos/create-administrador.dto';
 
-@ApiTags('admin')
-@Controller('admin')
+@ApiTags('admins')
+@Controller('admins')
 export class AdminController {
   constructor(
     @Inject('IAdminService')
