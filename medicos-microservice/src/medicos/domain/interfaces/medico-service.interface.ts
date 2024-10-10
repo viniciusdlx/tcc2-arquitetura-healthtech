@@ -5,4 +5,5 @@ export interface IMedicoService {
   create(request: CreateMedicoDto): Promise<MedicoOutputDto>;
   findById(id: string): Promise<MedicoOutputDto>;
   getAll(): Promise<MedicoOutputDto[]>;
+  findByCpf(cpf: string): Promise<MedicoOutputDto>;
 }

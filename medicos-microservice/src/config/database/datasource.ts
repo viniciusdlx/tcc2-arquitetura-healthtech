@@ -8,7 +8,8 @@ export const AppDataSource = new DataSource({
   username: dbEnvs.username,
   password: dbEnvs.password,
   database: dbEnvs.database,
-  entities: [__dirname + '../../../**/**/**/**/**/*.schema{.ts,.js}'], // Inclua todas as suas entidades aqui
-  migrations: [__dirname + '/../../migrations/*{.ts,.js}'],
+  entities: [__dirname + '../../../**/**/**/**/**/*.schema{.ts,.js}'],
+  migrations: [`${__dirname}/../../migrations/{.ts,*.js}`],
+  migrationsRun: true,
   synchronize: false, // Isso deve ser false em produção
 });

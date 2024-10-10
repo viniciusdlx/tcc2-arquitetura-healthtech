@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MedicoService } from './application/services/medico.service';
 import { CreateMedicoUseCase } from './application/usecases/create-medico.usecase';
+import { FindMedicoByCpfUseCase } from './application/usecases/find-medico-by-cpf.usecase';
 import { FindMedicoByIdUseCase } from './application/usecases/find-medico-by-id.usecase';
 import { GetAllMedicosUseCase } from './application/usecases/get-all-medicos.usecase';
 import { MedicoTypeOrmRepository } from './infra/repositories/medico.typeorm-repository';
@@ -29,6 +30,7 @@ export const IMedicoService = {
     CreateMedicoUseCase,
     FindMedicoByIdUseCase,
     GetAllMedicosUseCase,
+    FindMedicoByCpfUseCase,
   ],
 })
 export class MedicoModule {}

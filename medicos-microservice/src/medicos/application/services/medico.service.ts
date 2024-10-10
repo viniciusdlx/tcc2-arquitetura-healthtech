@@ -3,6 +3,7 @@ import { CreateMedicoDto } from 'src/medicos/presentation/dtos/create-medico.dto
 import { MedicoOutputDto } from 'src/medicos/presentation/dtos/medico-output.dto';
 import { IMedicoService } from '../../domain/interfaces/medico-service.interface';
 import { CreateMedicoUseCase } from '../usecases/create-medico.usecase';
+import { FindMedicoByCpfUseCase } from '../usecases/find-medico-by-cpf.usecase';
 import { FindMedicoByIdUseCase } from '../usecases/find-medico-by-id.usecase';
 import { GetAllMedicosUseCase } from '../usecases/get-all-medicos.usecase';
 
@@ -12,6 +13,7 @@ export class MedicoService implements IMedicoService {
     private readonly createMedicoUseCase: CreateMedicoUseCase,
     private readonly findMedicoByIdUseCase: FindMedicoByIdUseCase,
     private readonly getAllMedicosUseCase: GetAllMedicosUseCase,
+    private readonly findMedicoByCpfUseCase: FindMedicoByCpfUseCase,
   ) {}
 
   async create(request: CreateMedicoDto): Promise<MedicoOutputDto> {
@@ -24,5 +26,9 @@ export class MedicoService implements IMedicoService {
 
   async getAll(): Promise<MedicoOutputDto[]> {
     return await this.getAllMedicosUseCase.execute();
+  }
+
+  async findByCpf(cpf: string): Promise<MedicoOutputDto> {
+    return await this.findMedicoByCpfUseCase.execute(cpf);
   }
 }

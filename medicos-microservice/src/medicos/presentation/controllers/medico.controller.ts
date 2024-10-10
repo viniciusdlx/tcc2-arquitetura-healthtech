@@ -40,10 +40,10 @@ export class MedicoController {
     return res.status(HttpStatus.CREATED).json(doctor);
   }
 
-  @Get(':id')
+  @Get(':cpf')
   @ApiResponse({ type: MedicoOutputDto })
-  async findById(@Param('id') id: string, @Res() res: Response) {
-    const doctor = await this.medicoService.findById(id);
+  async findById(@Param('cpf') cpf: string, @Res() res: Response) {
+    const doctor = await this.medicoService.findByCpf(cpf);
     return res.status(HttpStatus.OK).json(doctor);
   }
 

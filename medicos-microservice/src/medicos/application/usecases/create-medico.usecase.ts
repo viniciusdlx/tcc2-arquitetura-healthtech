@@ -4,6 +4,8 @@ import { IMedicoRepository } from 'src/medicos/domain/interfaces/medico-reposito
 import { validateRequestCreateMedico } from 'src/medicos/infra/validators/create-medico.validator';
 import { CreateMedicoDto } from 'src/medicos/presentation/dtos/create-medico.dto';
 import { MedicoOutputDto } from 'src/medicos/presentation/dtos/medico-output.dto';
+import { ErrorCodesEnum } from 'src/shared/enums/error-codes.enum';
+import { ErrorMessagesEnum } from 'src/shared/enums/error-messages.enum';
 import { BadRequestException } from 'src/shared/exceptions/bad-request-exception';
 import { ErrorMessageCode } from 'src/shared/types/error-message-code';
 import { clearDocument } from 'src/shared/utils/clear-document';
@@ -45,8 +47,11 @@ export class CreateMedicoUseCase {
     return {
       ...createdDr,
       dataNascimento: dateToString(createdDr.dataNascimento, dateType),
-      dataCriacao: dateToString(createdDr.dataCriacao, dateType),
-      dataAtualizacao: dateToString(createdDr.dataAtualizacao, dateType),
+      dataCriacao: dateToString(createdDr.dataCriacao, 'DD/MM/YYYY HH:mm:ss'),
+      dataAtualizacao: dateToString(
+        createdDr.dataAtualizacao,
+        'DD/MM/YYYY HH:mm:ss',
+      ),
     };
   }
 
@@ -57,7 +62,14 @@ export class CreateMedicoUseCase {
 
     // console.log('dto -> ', dto);
     // busca o user pelo email
-    // const doctor = await this.medicoRepository.findById();
+    const doctor = await this.medicoRepository.findByCpf(dto.cpf);
+
+    if (!doctor) {
+      errors.push({
+        message: ErrorMessagesEnum.DOCTOR_NOT_FOUND,
+        code: ErrorCodesEnum.DOCTOR_NOT_FOUND,
+      });
+    }
 
     return errors;
   }
