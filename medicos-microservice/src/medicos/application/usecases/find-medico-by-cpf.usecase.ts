@@ -33,6 +33,9 @@ export class FindMedicoByCpfUseCase {
       dataNascimento: dateToString(doctor.dataNascimento, 'DD/MM/YYYY'),
       email: doctor.email,
       telefone: doctor.telefone,
+      estadoCrm: doctor.estadoCrm,
+      crm: doctor.crm,
+      horarios: doctor.horarios,
       dataCriacao: dateToString(doctor.dataCriacao, 'DD/MM/YYYY HH:mm:ss'),
       dataAtualizacao: dateToString(
         doctor.dataAtualizacao,

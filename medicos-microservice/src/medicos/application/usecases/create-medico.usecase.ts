@@ -60,11 +60,10 @@ export class CreateMedicoUseCase {
   ): Promise<ErrorMessageCode[]> {
     const errors: ErrorMessageCode = [];
 
-    // console.log('dto -> ', dto);
-    // busca o user pelo email
+    // busca o user pelo cpf
     const doctor = await this.medicoRepository.findByCpf(dto.cpf);
 
-    if (!doctor) {
+    if (doctor) {
       errors.push({
         message: ErrorMessagesEnum.DOCTOR_NOT_FOUND,
         code: ErrorCodesEnum.DOCTOR_NOT_FOUND,

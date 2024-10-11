@@ -18,8 +18,11 @@ export class GetAllMedicosUseCase {
       return {
         ...dr,
         dataNascimento: dateToString(dr.dataNascimento, dateType),
-        dataCriacao: dateToString(dr.dataCriacao, dateType),
-        dataAtualizacao: dateToString(dr.dataAtualizacao, dateType),
+        dataCriacao: dateToString(dr.dataCriacao, 'DD/MM/YYYY HH:mm:ss'),
+        dataAtualizacao: dateToString(
+          dr.dataAtualizacao,
+          'DD/MM/YYYY HH:mm:ss',
+        ),
       };
     });
   }

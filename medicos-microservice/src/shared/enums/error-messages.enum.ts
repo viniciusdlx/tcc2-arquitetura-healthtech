@@ -10,4 +10,5 @@ export enum ErrorMessagesEnum {
   REQUIRED_CRM = 'O CRM é obrigatório.',
   DOCTOR_NOT_FOUND = 'Médico inválido.',
   INVALID_DOCUMENT = 'Documento inválido. Deve conter 11 dígitos (CPF) ou 14 dígitos (CNPJ).',
+  INVALID_STATE = 'O código do estado informado é inválido (Ex: SP).',
 }

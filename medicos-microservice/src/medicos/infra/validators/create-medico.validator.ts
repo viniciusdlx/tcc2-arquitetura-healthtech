@@ -4,6 +4,7 @@ import { CreateMedicoDto } from 'src/medicos/presentation/dtos/create-medico.dto
 import { ErrorCodesEnum } from 'src/shared/enums/error-codes.enum';
 import { ErrorMessagesEnum } from 'src/shared/enums/error-messages.enum';
 import { ErrorMessageCode } from 'src/shared/types/error-message-code';
+import { isValidStateCode } from 'src/shared/utils/check-brazilian-state';
 import { validateDocument } from 'src/shared/utils/validate-document';
 
 export async function validateRequestCreateMedico(
@@ -50,6 +51,13 @@ export async function validateRequestCreateMedico(
     errors.push({
       message: ErrorMessagesEnum.REQUIRED_CRM,
       code: ErrorCodesEnum.REQUIRED_CRM,
+    });
+  }
+
+  if (!isValidStateCode(dto.estadoCrm)) {
+    errors.push({
+      message: ErrorMessagesEnum.INVALID_STATE,
+      code: ErrorCodesEnum.INVALID_STATE,
     });
   }
 
