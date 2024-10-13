@@ -9,12 +9,12 @@ export class Paciente {
   dataCriacao: Date;
   dataAtualizacao: Date;
 
-  constructor(medico: Partial<Paciente>) {
-    this.nome = medico.nome;
-    this.cpf = medico.cpf;
-    this.email = medico.email;
-    this.dataNascimento = medico.dataNascimento;
-    this.telefone = medico.telefone;
-    this.endereco = medico.endereco;
+  constructor(data: Partial<Paciente>) {
+    this.nome = data.nome;
+    this.cpf = data.cpf;
+    this.email = data.email;
+    this.dataNascimento = data.dataNascimento;
+    this.telefone = data.telefone;
+    this.endereco = data.endereco;
   }
 }

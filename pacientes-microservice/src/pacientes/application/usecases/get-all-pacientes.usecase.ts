@@ -12,15 +12,15 @@ export class GetAllPacientesUseCase {
   ) {}
 
   async execute(): Promise<PacienteOutputDto[]> {
-    const drs = await this.pacienteRepository.findAll();
+    const patients = await this.pacienteRepository.findAll();
 
-    return drs.map((dr): PacienteOutputDto => {
+    return patients.map((patient): PacienteOutputDto => {
       return {
-        ...dr,
-        dataNascimento: dateToString(dr.dataNascimento, dateType),
-        dataCriacao: dateToString(dr.dataCriacao, 'DD/MM/YYYY HH:mm:ss'),
+        ...patient,
+        dataNascimento: dateToString(patient.dataNascimento, dateType),
+        dataCriacao: dateToString(patient.dataCriacao, 'DD/MM/YYYY HH:mm:ss'),
         dataAtualizacao: dateToString(
-          dr.dataAtualizacao,
+          patient.dataAtualizacao,
           'DD/MM/YYYY HH:mm:ss',
         ),
       };
