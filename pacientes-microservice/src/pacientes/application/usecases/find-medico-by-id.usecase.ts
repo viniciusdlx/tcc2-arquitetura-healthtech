@@ -1,6 +1,11 @@
 import { Inject } from '@nestjs/common';
 import { IPacienteRepository } from 'src/pacientes/domain/interfaces/paciente-repository.interface';
+import { validateRequestFindPaciente } from 'src/pacientes/infra/validators/find-paciente.validator';
 import { PacienteOutputDto } from 'src/pacientes/presentation/dtos/paciente-output.dto';
+import { ErrorCodesEnum } from 'src/shared/enums/error-codes.enum';
+import { ErrorMessagesEnum } from 'src/shared/enums/error-messages.enum';
+import { BadRequestException } from 'src/shared/exceptions/bad-request-exception';
+import { NotFoundException } from 'src/shared/exceptions/not-found-exception';
 import { dateToString } from 'src/shared/utils/date-to-string';
 
 const dateType = 'DD/MM/YYYY';
@@ -12,13 +17,33 @@ export class FindPacienteByIdUseCase {
   ) {}
 
   async execute(id: string): Promise<PacienteOutputDto> {
-    const doctor = await this.pacienteRepository.findById(id);
+    await this.validate(id);
+
+    const patient = await this.pacienteRepository.findById(id);
+
+    if (!patient) {
+      throw new NotFoundException({
+        message: ErrorMessagesEnum.PATIENT_NOT_FOUND,
+        code: ErrorCodesEnum.PATIENT_NOT_FOUND,
+      });
+    }
 
     return {
-      ...doctor,
-      dataNascimento: dateToString(doctor.dataNascimento, dateType),
-      dataCriacao: dateToString(doctor.dataCriacao, dateType),
-      dataAtualizacao: dateToString(doctor.dataAtualizacao, dateType),
+      ...patient,
+      dataNascimento: dateToString(patient.dataNascimento, dateType),
+      dataCriacao: dateToString(patient.dataCriacao, dateType),
+      dataAtualizacao: dateToString(patient.dataAtualizacao, dateType),
     };
+  }
+
+  private async validate(id: string): Promise<void> {
+    console.log('id -> ', id);
+    const validateRequest = await validateRequestFindPaciente({ id: id });
+
+    const allErrors = [...validateRequest];
+
+    if (allErrors.length > 0) {
+      throw new BadRequestException(allErrors);
+    }
   }
 }

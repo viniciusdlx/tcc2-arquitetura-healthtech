@@ -9,6 +9,8 @@ export enum ErrorCodesEnum {
   REQUIRED_BIRTH_DATE = 'required_birth_date',
   REQUIRED_CRM = 'required_crm',
   PATIENT_NOT_FOUND = 'patient_not_found',
+  PATIENT_ALREADY_EXIST = 'patient_already_exist',
   INVALID_DOCUMENT = 'invalid_document',
   INVALID_STATE = 'invalid_state',
+  INVALID_ID = 'invalid_id',
 }

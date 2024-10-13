@@ -1,8 +1,3 @@
-import { ErrorCodesEnum } from '../enums/error-codes.enum';
-import { ErrorMessagesEnum } from '../enums/error-messages.enum';
-import { BadRequestException } from '../exceptions/bad-request-exception';
-import { ErrorMessageCode } from '../types/error-message-code';
-
 /**
  * Função para formatar CPF ou CNPJ sem máscara.
  * @param document - string contendo apenas os dígitos do CPF (11 dígitos) ou CNPJ (14 dígitos)
@@ -22,15 +17,5 @@ export function formatDocument(document: string): string {
       /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
       '$1.$2.$3/$4-$5',
     );
-  } else {
-    const errors: ErrorMessageCode = [];
-
-    // Caso não seja nem CPF nem CNPJ, retorna um erro
-    errors.push({
-      message: ErrorMessagesEnum.INVALID_DOCUMENT,
-      code: ErrorCodesEnum.INVALID_DOCUMENT,
-    });
-
-    throw new BadRequestException(errors);
   }
 }

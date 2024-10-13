@@ -10,7 +10,7 @@ services:
   #         - /etc/localtime:/etc/localtime:ro
   #         - /etc/timezone:/etc/timezone:ro
 
-  medicos:
+  pacientes:
     image: pacientes-microservice
     build:
       dockerfile: Dockerfile

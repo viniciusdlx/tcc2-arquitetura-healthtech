@@ -9,6 +9,8 @@ export enum ErrorMessagesEnum {
   REQUIRED_BIRTH_DATE = 'A data de nascimento é obrigatória.',
   REQUIRED_CRM = 'O CRM é obrigatório.',
   PATIENT_NOT_FOUND = 'Paciente inválido.',
+  PATIENT_ALREADY_EXIST = 'Erro ao cadastrar paciente, verifique os dados.',
   INVALID_DOCUMENT = 'Documento inválido. Deve conter 11 dígitos (CPF) ou 14 dígitos (CNPJ).',
   INVALID_STATE = 'O código do estado informado é inválido (Ex: SP).',
+  INVALID_ID = 'O id informado é inválido.',
 }

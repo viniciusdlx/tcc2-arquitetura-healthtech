@@ -12,9 +12,10 @@ export async function validateRequestCreatePaciente(
   const errors: ErrorMessageCode = [];
 
   if (!validateDocument({ doc: dto.cpf })) {
+    console.log('dto.cpf.length -> ', dto.cpf.length);
     errors.push({
-      message: ErrorMessagesEnum.INVALID_DOCUMENT,
-      code: ErrorCodesEnum.INVALID_DOCUMENT,
+      message: ErrorMessagesEnum.INVALID_CPF,
+      code: ErrorCodesEnum.INVALID_CPF,
     });
   }
 

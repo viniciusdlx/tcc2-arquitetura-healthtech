@@ -28,7 +28,7 @@ export class CreatePacienteUseCase {
     const birthDate = stringToDate(dto.dataNascimento);
     dto.telefone = clearPhoneNumber(dto.telefone);
 
-    const newDoctor = new Paciente({
+    const newPatient = new Paciente({
       nome: dto.nome,
       cpf: dto.cpf,
       email: dto.email,
@@ -37,7 +37,7 @@ export class CreatePacienteUseCase {
       endereco: dto.endereco,
     });
 
-    const createdPatient = await this.pacienteRepository.insert(newDoctor);
+    const createdPatient = await this.pacienteRepository.insert(newPatient);
 
     console.log('createdDr -> ', createdPatient);
 
@@ -61,12 +61,12 @@ export class CreatePacienteUseCase {
     const errors: ErrorMessageCode = [];
 
     // busca o user pelo cpf
-    const doctor = await this.pacienteRepository.findByCpf(dto.cpf);
+    const patient = await this.pacienteRepository.findByCpf(dto.cpf);
 
-    if (doctor) {
+    if (patient) {
       errors.push({
-        message: ErrorMessagesEnum.PATIENT_NOT_FOUND,
-        code: ErrorCodesEnum.PATIENT_NOT_FOUND,
+        message: ErrorMessagesEnum.PATIENT_ALREADY_EXIST,
+        code: ErrorCodesEnum.PATIENT_ALREADY_EXIST,
       });
     }
 

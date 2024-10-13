@@ -2,7 +2,7 @@ type ValidateDocumentProps = {
   doc: string;
 };
 
-export function validateDocument({ doc }: ValidateDocumentProps) {
+export function validateDocument({ doc }: ValidateDocumentProps): boolean {
   if (!doc) {
     return false;
   }
@@ -13,6 +13,8 @@ export function validateDocument({ doc }: ValidateDocumentProps) {
   if (doc.length === 11 || doc.length === 14) {
     return true;
   }
+
+  console.log('doc.length -> ', doc.length);
 
   return false;
 }

@@ -48,8 +48,8 @@ export class PacienteTypeOrmRepository implements IPacienteRepository {
   }
 
   async findByCpf(cpf: string): Promise<Paciente> {
-    const formatedCpf = formatDocument(cpf);
     const cleanedCpf = clearDocument(cpf);
+    const formatedCpf = formatDocument(cpf);
 
     try {
       const query = await this.pacienteRepository
