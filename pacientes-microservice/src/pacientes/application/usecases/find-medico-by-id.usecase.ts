@@ -37,7 +37,6 @@ export class FindPacienteByIdUseCase {
   }
 
   private async validate(id: string): Promise<void> {
-    console.log('id -> ', id);
     const validateRequest = await validateRequestFindPaciente({ id: id });
 
     const allErrors = [...validateRequest];

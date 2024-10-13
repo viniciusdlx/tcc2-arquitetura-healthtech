@@ -5,6 +5,7 @@ import { ErrorCodesEnum } from 'src/shared/enums/error-codes.enum';
 import { ErrorMessagesEnum } from 'src/shared/enums/error-messages.enum';
 import { ErrorMessageCode } from 'src/shared/types/error-message-code';
 import { validateDocument } from 'src/shared/utils/validate-document';
+import { validateBrazilianPhone } from 'src/shared/utils/validate-phone-number';
 
 export async function validateRequestCreatePaciente(
   dto: CreatePacienteDto,
@@ -12,7 +13,6 @@ export async function validateRequestCreatePaciente(
   const errors: ErrorMessageCode = [];
 
   if (!validateDocument({ doc: dto.cpf })) {
-    console.log('dto.cpf.length -> ', dto.cpf.length);
     errors.push({
       message: ErrorMessagesEnum.INVALID_CPF,
       code: ErrorCodesEnum.INVALID_CPF,
@@ -44,6 +44,13 @@ export async function validateRequestCreatePaciente(
     errors.push({
       message: ErrorMessagesEnum.INVALID_BIRTH_DATE,
       code: ErrorCodesEnum.INVALID_BIRTH_DATE,
+    });
+  }
+
+  if (!validateBrazilianPhone(dto.telefone)) {
+    errors.push({
+      message: ErrorMessagesEnum.INVALID_FORMAT_PHONE_NUMBER,
+      code: ErrorCodesEnum.INVALID_FORMAT_PHONE_NUMBER,
     });
   }
 

@@ -13,4 +13,5 @@ export enum ErrorCodesEnum {
   INVALID_DOCUMENT = 'invalid_document',
   INVALID_STATE = 'invalid_state',
   INVALID_ID = 'invalid_id',
+  INVALID_FORMAT_PHONE_NUMBER = 'invalid_format_phone_number',
 }

@@ -13,4 +13,5 @@ export enum ErrorMessagesEnum {
   INVALID_DOCUMENT = 'Documento inválido. Deve conter 11 dígitos (CPF) ou 14 dígitos (CNPJ).',
   INVALID_STATE = 'O código do estado informado é inválido (Ex: SP).',
   INVALID_ID = 'O id informado é inválido.',
+  INVALID_FORMAT_PHONE_NUMBER = 'O formato do telefone informado é inválido.',
 }

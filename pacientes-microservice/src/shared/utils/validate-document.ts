@@ -14,7 +14,5 @@ export function validateDocument({ doc }: ValidateDocumentProps): boolean {
     return true;
   }
 
-  console.log('doc.length -> ', doc.length);
-
   return false;
 }
