@@ -16,4 +16,12 @@ export enum ErrorMessagesEnum {
   INVALID_ID = 'O id informado é inválido.',
   INVALID_FORMAT_PHONE_NUMBER = 'O formato do telefone informado é inválido.',
   DATE_IS_BEFORE = 'A data informada não pode ser anterior ao dia atual.',
+  HOUR_IS_BEFORE = 'O horário informado não pode ser anterior ao horário atual.',
+  INVALID_MODALITY = 'A modalidade informada está inválida.',
+  INVALID_DOCTOR_ID = 'O id do médico informado é inválido.',
+  INVALID_PATIENT_ID = 'O id do paciente informado é inválido.',
+  INVALID_ADMIN_ID = 'O id do administrador informado é inválido.',
+  DOCTOR_NOT_FOUND = 'Médico inválido.',
+  UNAVAILABLE_HOUR = 'O horário informado está indisponível.',
+  DOCTOR_UNAVAILABLE_HOUR = 'O médico não tem esse horário disponível.',
 }

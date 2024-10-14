@@ -1,6 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { Atendimento } from 'src/atendimentos/domain/entities/atendimento.entity';
 import { IAtendimentoRepository } from 'src/atendimentos/domain/interfaces/atendimento-repository.interface';
+import { MedicosAxiosApi } from 'src/atendimentos/infra/http/medicos-axios-api';
 import { validateRequestCreateAtendimento } from 'src/atendimentos/infra/validators/create-atendimento.validator';
 import { AtendimentoOutputDto } from 'src/atendimentos/presentation/dtos/atendimento-output.dto';
 import { CreateAtendimentoDto } from 'src/atendimentos/presentation/dtos/create-atendimento.dto';
@@ -9,11 +10,13 @@ import { ErrorMessagesEnum } from 'src/shared/enums/error-messages.enum';
 import { BadRequestException } from 'src/shared/exceptions/bad-request-exception';
 import { ErrorMessageCode } from 'src/shared/types/error-message-code';
 import { dateToString } from 'src/shared/utils/date-to-string';
+import { isTimeAvailable } from 'src/shared/utils/is-time-available';
 
 export class CreateAtendimentoUseCase {
   constructor(
     @Inject('IAtendimentoRepository')
     private readonly atendimentoRepository: IAtendimentoRepository,
+    private readonly medicosAxiosApi: MedicosAxiosApi,
   ) {}
 
   async execute(dto: CreateAtendimentoDto): Promise<AtendimentoOutputDto> {
@@ -29,6 +32,8 @@ export class CreateAtendimentoUseCase {
       adminId: dto.adminId,
     });
 
+    return;
+
     const createdAppointment =
       await this.atendimentoRepository.insert(newAppointment);
 
@@ -36,6 +41,7 @@ export class CreateAtendimentoUseCase {
 
     return {
       ...createdAppointment,
+      data: dateToString(new Date(createdAppointment.data), 'DD/MM/YYYY'),
       dataCriacao: dateToString(
         createdAppointment.dataCriacao,
         'DD/MM/YYYY HH:mm:ss',
@@ -53,15 +59,39 @@ export class CreateAtendimentoUseCase {
     const errors: ErrorMessageCode = [];
 
     // busca o user pelo cpf
-    const appointment = await this.atendimentoRepository.findByDateAndHour({
+    const appointments = await this.atendimentoRepository.findByDateAndDoctor({
       date: dto.data,
-      hour: dto.horario,
+      doctorId: dto.medicoId,
     });
 
-    if (appointment) {
+    const appointmentsHours = appointments.map((ap) => ap.horario.slice(0, 5));
+
+    if (appointmentsHours.includes(dto.horario)) {
       errors.push({
-        message: ErrorMessagesEnum.INVALID_APPOINTMENT_DATE_HOUR,
-        code: ErrorCodesEnum.INVALID_APPOINTMENT_DATE_HOUR,
+        message: ErrorMessagesEnum.UNAVAILABLE_HOUR,
+        code: ErrorCodesEnum.UNAVAILABLE_HOUR,
+      });
+    }
+
+    const doctor = await this.medicosAxiosApi.findById(dto.medicoId);
+
+    if (!doctor) {
+      errors.push({
+        message: ErrorMessagesEnum.DOCTOR_NOT_FOUND,
+        code: ErrorCodesEnum.DOCTOR_NOT_FOUND,
+      });
+    }
+
+    if (
+      !isTimeAvailable({
+        date: dto.data,
+        time: dto.horario,
+        schedule: doctor.horarios,
+      })
+    ) {
+      errors.push({
+        message: ErrorMessagesEnum.DOCTOR_UNAVAILABLE_HOUR,
+        code: ErrorCodesEnum.DOCTOR_UNAVAILABLE_HOUR,
       });
     }
 

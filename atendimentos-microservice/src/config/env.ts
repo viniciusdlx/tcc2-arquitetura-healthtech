@@ -13,3 +13,5 @@ export const jwtConstants = {
   secret: process.env.AUTH_SECRET,
   expiresIn: process.env.EXPIRES_IN,
 };
+
+export const urlMedicosApi = 'http://localhost:3001/api/medicos';

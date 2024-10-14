@@ -11,4 +11,5 @@ export enum ErrorCodesEnum {
   DOCTOR_NOT_FOUND = 'doctor_not_found',
   INVALID_DOCUMENT = 'invalid_document',
   INVALID_STATE = 'invalid_state',
+  INVALID_ID = 'invalid_id',
 }

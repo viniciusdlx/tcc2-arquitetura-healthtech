@@ -61,4 +61,21 @@ export class AtendimentoTypeOrmRepository implements IAtendimentoRepository {
       throw defaultInternalServerError();
     }
   }
+
+  async findByDateAndDoctor(params: {
+    date: string;
+    doctorId: string;
+  }): Promise<Atendimento[]> {
+    try {
+      const query = await this.atendimentoRepository.findBy({
+        data: params.date,
+        medicoId: params.doctorId,
+      });
+
+      return query;
+    } catch (error) {
+      console.log('error.message -> ', error.message);
+      throw defaultInternalServerError();
+    }
+  }
 }

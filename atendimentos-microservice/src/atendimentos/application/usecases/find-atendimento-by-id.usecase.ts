@@ -7,6 +7,7 @@ import { ErrorMessagesEnum } from 'src/shared/enums/error-messages.enum';
 import { BadRequestException } from 'src/shared/exceptions/bad-request-exception';
 import { NotFoundException } from 'src/shared/exceptions/not-found-exception';
 import { dateToString } from 'src/shared/utils/date-to-string';
+import { formatDateString } from 'src/shared/utils/format-date-string';
 
 const dateType = 'DD/MM/YYYY';
 
@@ -30,8 +31,12 @@ export class FindAtendimentoByIdUseCase {
 
     return {
       ...appointment,
-      dataCriacao: dateToString(appointment.dataCriacao, dateType),
-      dataAtualizacao: dateToString(appointment.dataAtualizacao, dateType),
+      data: formatDateString(appointment.data, dateType),
+      dataCriacao: dateToString(appointment.dataCriacao, 'DD/MM/YYYY HH:mm:ss'),
+      dataAtualizacao: dateToString(
+        appointment.dataAtualizacao,
+        'DD/MM/YYYY HH:mm:ss',
+      ),
     };
   }
 

@@ -16,4 +16,12 @@ export enum ErrorCodesEnum {
   INVALID_ID = 'invalid_id',
   INVALID_FORMAT_PHONE_NUMBER = 'invalid_format_phone_number',
   DATE_IS_BEFORE = 'date_is_before',
+  HOUR_IS_BEFORE = 'hour_is_before',
+  INVALID_MODALITY = 'invalid_modality',
+  INVALID_DOCTOR_ID = 'invalid_doctor_id',
+  INVALID_PATIENT_ID = 'invalid_patient_id',
+  INVALID_ADMIN_ID = 'invalid_admin_id',
+  DOCTOR_NOT_FOUND = 'doctor_not_found',
+  UNAVAILABLE_HOUR = 'unavailable_hour',
+  DOCTOR_UNAVAILABLE_HOUR = 'doctor_unavailable_hour',
 }
