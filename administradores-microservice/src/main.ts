@@ -26,16 +26,16 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Admin Microsserviço')
     .setVersion('1.0')
-    .addBearerAuth({
-      name: 'Authorization',
-      bearerFormat: 'JWT',
-      in: 'header',
-      type: 'http',
-    })
+    // .addBearerAuth({
+    //   name: 'Authorization',
+    //   bearerFormat: 'JWT',
+    //   in: 'header',
+    //   type: 'http',
+    // })
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('doc', app, document);
 
   await app.listen(3000);
 }

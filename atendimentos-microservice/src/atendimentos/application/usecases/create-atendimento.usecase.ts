@@ -2,6 +2,7 @@ import { Inject } from '@nestjs/common';
 import { Atendimento } from 'src/atendimentos/domain/entities/atendimento.entity';
 import { IAtendimentoRepository } from 'src/atendimentos/domain/interfaces/atendimento-repository.interface';
 import { MedicosAxiosApi } from 'src/atendimentos/infra/http/medicos-axios-api';
+import { PacienteAxiosApi } from 'src/atendimentos/infra/http/paciente-axios.api';
 import { validateRequestCreateAtendimento } from 'src/atendimentos/infra/validators/create-atendimento.validator';
 import { AtendimentoOutputDto } from 'src/atendimentos/presentation/dtos/atendimento-output.dto';
 import { CreateAtendimentoDto } from 'src/atendimentos/presentation/dtos/create-atendimento.dto';
@@ -17,6 +18,7 @@ export class CreateAtendimentoUseCase {
     @Inject('IAtendimentoRepository')
     private readonly atendimentoRepository: IAtendimentoRepository,
     private readonly medicosAxiosApi: MedicosAxiosApi,
+    private readonly pacienteAxiosApi: PacienteAxiosApi,
   ) {}
 
   async execute(dto: CreateAtendimentoDto): Promise<AtendimentoOutputDto> {
@@ -92,6 +94,15 @@ export class CreateAtendimentoUseCase {
       errors.push({
         message: ErrorMessagesEnum.DOCTOR_UNAVAILABLE_HOUR,
         code: ErrorCodesEnum.DOCTOR_UNAVAILABLE_HOUR,
+      });
+    }
+
+    const patient = await this.pacienteAxiosApi.findById(dto.pacienteId);
+
+    if (!patient) {
+      errors.push({
+        message: ErrorMessagesEnum.PATIENT_NOT_FOUND,
+        code: ErrorCodesEnum.PATIENT_NOT_FOUND,
       });
     }
 

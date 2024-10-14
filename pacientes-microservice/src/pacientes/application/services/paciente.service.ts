@@ -3,8 +3,8 @@ import { IPacienteService } from 'src/pacientes/domain/interfaces/paciente-servi
 import { CreatePacienteDto } from 'src/pacientes/presentation/dtos/create-paciente.dto';
 import { PacienteOutputDto } from 'src/pacientes/presentation/dtos/paciente-output.dto';
 import { CreatePacienteUseCase } from '../usecases/create-paciente.usecase';
-import { FindPacienteByIdUseCase } from '../usecases/find-medico-by-id.usecase';
 import { FindPacienteByCpfUseCase } from '../usecases/find-paciente-by-cpf.usecase';
+import { FindPacienteByIdUseCase } from '../usecases/find-paciente-by-id.usecase';
 import { GetAllPacientesUseCase } from '../usecases/get-all-pacientes.usecase';
 
 @Injectable()

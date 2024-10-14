@@ -14,4 +14,6 @@ export const jwtConstants = {
   expiresIn: process.env.EXPIRES_IN,
 };
 
+export const urlAdminsApi = 'http://localhost:3000/api/admins';
 export const urlMedicosApi = 'http://localhost:3001/api/medicos';
+export const urlPacientesApi = 'http://localhost:3002/api/pacientes';

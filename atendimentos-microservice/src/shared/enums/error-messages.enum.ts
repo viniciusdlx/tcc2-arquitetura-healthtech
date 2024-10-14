@@ -22,6 +22,7 @@ export enum ErrorMessagesEnum {
   INVALID_PATIENT_ID = 'O id do paciente informado é inválido.',
   INVALID_ADMIN_ID = 'O id do administrador informado é inválido.',
   DOCTOR_NOT_FOUND = 'Médico inválido.',
+  PATIENT_NOT_FOUND = 'Paciente inválido.',
   UNAVAILABLE_HOUR = 'O horário informado está indisponível.',
   DOCTOR_UNAVAILABLE_HOUR = 'O médico não tem esse horário disponível.',
 }

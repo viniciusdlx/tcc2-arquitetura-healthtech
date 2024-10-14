@@ -22,6 +22,7 @@ export enum ErrorCodesEnum {
   INVALID_PATIENT_ID = 'invalid_patient_id',
   INVALID_ADMIN_ID = 'invalid_admin_id',
   DOCTOR_NOT_FOUND = 'doctor_not_found',
+  PATIENT_NOT_FOUND = 'patient_not_found',
   UNAVAILABLE_HOUR = 'unavailable_hour',
   DOCTOR_UNAVAILABLE_HOUR = 'doctor_unavailable_hour',
 }

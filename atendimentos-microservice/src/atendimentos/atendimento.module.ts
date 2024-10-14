@@ -6,6 +6,7 @@ import { CreateAtendimentoUseCase } from './application/usecases/create-atendime
 import { FindAtendimentoByIdUseCase } from './application/usecases/find-atendimento-by-id.usecase';
 import { GetAllAtendimentosUseCase } from './application/usecases/get-all-atendimentos.usecase';
 import { MedicosAxiosApi } from './infra/http/medicos-axios-api';
+import { PacienteAxiosApi } from './infra/http/paciente-axios.api';
 import { AtendimentoTypeOrmRepository } from './infra/repositories/atendimento.typeorm-repository';
 import { AtendimentoSchema } from './infra/schemas/atendimento.schema';
 import { AtendimentoController } from './presentation/controllers/atendimento.controller';
@@ -32,6 +33,7 @@ export const IAtendimentoService = {
     FindAtendimentoByIdUseCase,
     GetAllAtendimentosUseCase,
     MedicosAxiosApi,
+    PacienteAxiosApi,
   ],
 })
 export class AtendimentoModule {}
