@@ -18,8 +18,11 @@ export class GetAllAdminsUseCase {
       return {
         ...adm,
         dataNascimento: dateToString(adm.dataNascimento, dateType),
-        dataCriacao: dateToString(adm.dataCriacao, dateType),
-        dataAtualizacao: dateToString(adm.dataAtualizacao, dateType),
+        dataCriacao: dateToString(adm.dataCriacao, 'DD/MM/YYYY HH:mm:ss'),
+        dataAtualizacao: dateToString(
+          adm.dataAtualizacao,
+          'DD/MM/YYYY HH:mm:ss',
+        ),
       };
     });
   }

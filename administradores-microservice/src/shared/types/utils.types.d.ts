@@ -1,1 +1,6 @@
-export type FormatDateTypes = 'MM-DD-YYYY' | 'YYYY-MM-DD' | 'DD/MM/YYYY';
+export type FormatDateTypes =
+  | 'MM-DD-YYYY'
+  | 'YYYY-MM-DD'
+  | 'DD/MM/YYYY'
+  | 'DD/MM/YYYY HH:mm:ss'
+  | 'HH:mm';
