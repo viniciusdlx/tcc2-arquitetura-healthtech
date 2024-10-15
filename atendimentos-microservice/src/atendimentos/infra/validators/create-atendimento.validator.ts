@@ -5,6 +5,7 @@ import { ErrorMessagesEnum } from 'src/shared/enums/error-messages.enum';
 import { ErrorMessageCode } from 'src/shared/types/error-message-code';
 import { isBeforeCurrentTime } from 'src/shared/utils/is-before-current-time';
 import { isBeforeToday } from 'src/shared/utils/is-before-today';
+import { isToday } from 'src/shared/utils/is-today';
 import { isModalityAppointment } from 'src/shared/utils/is-valid-modality-appointment';
 
 export async function validateRequestCreateAtendimento(
@@ -19,7 +20,8 @@ export async function validateRequestCreateAtendimento(
     });
   }
 
-  if (isBeforeCurrentTime(dto.horario)) {
+  // Só verifica se o horário é antes do atual se for no mesmo dia
+  if (isToday(dto.data) && isBeforeCurrentTime(dto.horario)) {
     errors.push({
       message: ErrorMessagesEnum.HOUR_IS_BEFORE,
       code: ErrorCodesEnum.HOUR_IS_BEFORE,

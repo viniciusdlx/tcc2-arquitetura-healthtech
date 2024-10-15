@@ -1,6 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { Atendimento } from 'src/atendimentos/domain/entities/atendimento.entity';
 import { IAtendimentoRepository } from 'src/atendimentos/domain/interfaces/atendimento-repository.interface';
+import { AdminsAxiosApi } from 'src/atendimentos/infra/http/admin-axios-api';
 import { MedicosAxiosApi } from 'src/atendimentos/infra/http/medicos-axios-api';
 import { PacienteAxiosApi } from 'src/atendimentos/infra/http/paciente-axios.api';
 import { validateRequestCreateAtendimento } from 'src/atendimentos/infra/validators/create-atendimento.validator';
@@ -11,6 +12,7 @@ import { ErrorMessagesEnum } from 'src/shared/enums/error-messages.enum';
 import { BadRequestException } from 'src/shared/exceptions/bad-request-exception';
 import { ErrorMessageCode } from 'src/shared/types/error-message-code';
 import { dateToString } from 'src/shared/utils/date-to-string';
+import { formatDateString } from 'src/shared/utils/format-date-string';
 import { isTimeAvailable } from 'src/shared/utils/is-time-available';
 
 export class CreateAtendimentoUseCase {
@@ -19,6 +21,7 @@ export class CreateAtendimentoUseCase {
     private readonly atendimentoRepository: IAtendimentoRepository,
     private readonly medicosAxiosApi: MedicosAxiosApi,
     private readonly pacienteAxiosApi: PacienteAxiosApi,
+    private readonly adminsAxiosApi: AdminsAxiosApi,
   ) {}
 
   async execute(dto: CreateAtendimentoDto): Promise<AtendimentoOutputDto> {
@@ -34,16 +37,12 @@ export class CreateAtendimentoUseCase {
       adminId: dto.adminId,
     });
 
-    return;
-
     const createdAppointment =
       await this.atendimentoRepository.insert(newAppointment);
 
-    console.log('createdDr -> ', createdAppointment);
-
     return {
       ...createdAppointment,
-      data: dateToString(new Date(createdAppointment.data), 'DD/MM/YYYY'),
+      data: formatDateString(createdAppointment.data, 'DD/MM/YYYY'),
       dataCriacao: dateToString(
         createdAppointment.dataCriacao,
         'DD/MM/YYYY HH:mm:ss',
@@ -85,6 +84,7 @@ export class CreateAtendimentoUseCase {
     }
 
     if (
+      doctor &&
       !isTimeAvailable({
         date: dto.data,
         time: dto.horario,
@@ -103,6 +103,15 @@ export class CreateAtendimentoUseCase {
       errors.push({
         message: ErrorMessagesEnum.PATIENT_NOT_FOUND,
         code: ErrorCodesEnum.PATIENT_NOT_FOUND,
+      });
+    }
+
+    const admin = await this.adminsAxiosApi.findById(dto.adminId);
+
+    if (!admin) {
+      errors.push({
+        message: ErrorMessagesEnum.ADMIN_NOT_FOUND,
+        code: ErrorCodesEnum.ADMIN_NOT_FOUND,
       });
     }
 
