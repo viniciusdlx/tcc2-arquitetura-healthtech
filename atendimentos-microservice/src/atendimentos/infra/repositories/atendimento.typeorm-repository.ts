@@ -45,23 +45,6 @@ export class AtendimentoTypeOrmRepository implements IAtendimentoRepository {
     }
   }
 
-  async findByDateAndHour(params: {
-    date: string;
-    hour: string;
-  }): Promise<Atendimento> {
-    try {
-      const query = await this.atendimentoRepository.findOneBy({
-        data: params.date,
-        horario: params.hour,
-      });
-
-      return query;
-    } catch (error) {
-      console.log('error.message -> ', error.message);
-      throw defaultInternalServerError();
-    }
-  }
-
   async findByDateAndDoctor(params: {
     date: string;
     doctorId: string;
