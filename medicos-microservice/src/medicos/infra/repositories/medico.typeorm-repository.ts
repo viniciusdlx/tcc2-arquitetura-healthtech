@@ -72,4 +72,20 @@ export class MedicoTypeOrmRepository implements IMedicoRepository {
       throw defaultInternalServerError();
     }
   }
+  async update(data: Partial<Medico>): Promise<Medico> {
+    try {
+      const query = await this.medicoRepository.update(data.id, {
+        horarios: data.horarios,
+      });
+
+      if (query.affected > 0) {
+        const doc = await this.medicoRepository.findOneBy({ id: data.id });
+
+        return doc;
+      }
+    } catch (error) {
+      console.log('error.message -> ', error.message);
+      throw defaultInternalServerError();
+    }
+  }
 }

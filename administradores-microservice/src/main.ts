@@ -37,6 +37,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('doc', app, document);
 
-  await app.listen(3000);
+  const PORT = 3000;
+
+  await app.listen(PORT);
+
+  console.log(`running admins on ${PORT}`);
 }
 bootstrap();

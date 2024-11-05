@@ -5,4 +5,5 @@ export interface IMedicoRepository {
   findById(id: string): Promise<Medico>;
   findAll(): Promise<Medico[]>;
   findByCpf(cpf: string): Promise<Medico>;
+  update(data: Partial<Medico>): Promise<Medico>;
 }

@@ -15,6 +15,8 @@ export class GetAllAtendimentosUseCase {
   async execute(): Promise<AtendimentoOutputDto[]> {
     const appointments = await this.atendimentoRepository.findAll();
 
+    console.log('total appointments -> ', appointments.length);
+
     return appointments.map((appointment): AtendimentoOutputDto => {
       return {
         ...appointment,

@@ -6,6 +6,7 @@ import {
   Inject,
   Param,
   Post,
+  Put,
   Res,
 } from '@nestjs/common';
 import {
@@ -19,6 +20,7 @@ import { Response } from 'express';
 import { IMedicoService } from 'src/medicos/domain/interfaces/medico-service.interface';
 import { CreateMedicoDto } from '../dtos/create-medico.dto';
 import { MedicoOutputDto } from '../dtos/medico-output.dto';
+import { UpdateMedicoDto } from '../dtos/update-medico.dto';
 
 @ApiTags('Medicos')
 @Controller('medicos')
@@ -38,6 +40,25 @@ export class MedicoController {
   async create(@Body() dto: CreateMedicoDto, @Res() res: Response) {
     const doctor = await this.medicoService.create(dto);
     return res.status(HttpStatus.CREATED).json(doctor);
+  }
+
+  @Put(':id')
+  @ApiCreatedResponse({
+    description: 'Médico atualizado com sucesso.',
+  })
+  @ApiBadRequestResponse()
+  @ApiBody({ type: UpdateMedicoDto })
+  @ApiResponse({ type: MedicoOutputDto })
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateMedicoDto,
+    @Res() res: Response,
+  ) {
+    const doctor = await this.medicoService.update({
+      id: id,
+      horarios: dto.horarios,
+    });
+    return res.status(HttpStatus.OK).json(doctor);
   }
 
   @Get('/cpf/:cpf')

@@ -37,6 +37,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('doc', app, document);
 
-  await app.listen(3002);
+  const PORT = 3002;
+
+  await app.listen(PORT);
+
+  console.log(`running patients on ${PORT}`);
 }
 bootstrap();

@@ -5,6 +5,7 @@ import { CreateMedicoUseCase } from './application/usecases/create-medico.usecas
 import { FindMedicoByCpfUseCase } from './application/usecases/find-medico-by-cpf.usecase';
 import { FindMedicoByIdUseCase } from './application/usecases/find-medico-by-id.usecase';
 import { GetAllMedicosUseCase } from './application/usecases/get-all-medicos.usecase';
+import { UpdateMedicoUseCase } from './application/usecases/update-medico.usecase';
 import { MedicoTypeOrmRepository } from './infra/repositories/medico.typeorm-repository';
 import { MedicoSchema } from './infra/schemas/medico.schema';
 import { MedicoController } from './presentation/controllers/medico.controller';
@@ -31,6 +32,7 @@ export const IMedicoService = {
     FindMedicoByIdUseCase,
     GetAllMedicosUseCase,
     FindMedicoByCpfUseCase,
+    UpdateMedicoUseCase,
   ],
 })
 export class MedicoModule {}
