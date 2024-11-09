@@ -14,6 +14,8 @@ export class GetAllAdminsUseCase {
   async execute(): Promise<AdministradorOutputDto[]> {
     const admins = await this.adminRepository.findAll();
 
+    console.log('total admins -> ', admins.length);
+
     return admins.map((adm): AdministradorOutputDto => {
       return {
         ...adm,

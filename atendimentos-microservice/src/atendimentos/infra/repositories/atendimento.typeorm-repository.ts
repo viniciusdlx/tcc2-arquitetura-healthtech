@@ -34,9 +34,14 @@ export class AtendimentoTypeOrmRepository implements IAtendimentoRepository {
     }
   }
 
-  async findAll(): Promise<Atendimento[]> {
+  async findAll(params: {
+    medicoId?: string;
+    pacienteId?: string;
+  }): Promise<Atendimento[]> {
     try {
-      const query = await this.atendimentoRepository.find();
+      const query = await this.atendimentoRepository.find({
+        where: { medicoId: params.medicoId, pacienteId: params.pacienteId },
+      });
 
       return query;
     } catch (error) {

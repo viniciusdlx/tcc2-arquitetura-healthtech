@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IAtendimentoService } from 'src/atendimentos/domain/interfaces/atendimento-service.interface';
 import { AtendimentoOutputDto } from 'src/atendimentos/presentation/dtos/atendimento-output.dto';
 import { CreateAtendimentoDto } from 'src/atendimentos/presentation/dtos/create-atendimento.dto';
+import { QueryAtendimentoDto } from 'src/atendimentos/presentation/dtos/query-atendimento.dto';
 import { CreateAtendimentoUseCase } from '../usecases/create-atendimento.usecase';
 import { FindAtendimentoByIdUseCase } from '../usecases/find-atendimento-by-id.usecase';
 import { GetAllAtendimentosUseCase } from '../usecases/get-all-atendimentos.usecase';
@@ -22,7 +23,7 @@ export class AtendimentoService implements IAtendimentoService {
     return await this.findAtendimentoByIdUseCase.execute(id);
   }
 
-  async getAll(): Promise<AtendimentoOutputDto[]> {
-    return await this.getAllAtendimentosUseCase.execute();
+  async getAll(query: QueryAtendimentoDto): Promise<AtendimentoOutputDto[]> {
+    return await this.getAllAtendimentosUseCase.execute(query);
   }
 }

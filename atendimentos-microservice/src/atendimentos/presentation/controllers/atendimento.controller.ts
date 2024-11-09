@@ -6,12 +6,14 @@ import {
   Inject,
   Param,
   Post,
+  Query,
   Res,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBody,
   ApiCreatedResponse,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -19,6 +21,7 @@ import { Response } from 'express';
 import { IAtendimentoService } from 'src/atendimentos/domain/interfaces/atendimento-service.interface';
 import { AtendimentoOutputDto } from '../dtos/atendimento-output.dto';
 import { CreateAtendimentoDto } from '../dtos/create-atendimento.dto';
+import { QueryAtendimentoDto } from '../dtos/query-atendimento.dto';
 
 @ApiTags('Atendimentos')
 @Controller('atendimentos')
@@ -49,8 +52,11 @@ export class AtendimentoController {
 
   @Get()
   @ApiResponse({ type: [AtendimentoOutputDto] })
-  async getAll(@Res() res: Response) {
-    const patient = await this.atendimentoService.getAll();
+  @ApiQuery({
+    type: QueryAtendimentoDto,
+  })
+  async getAll(@Query() query: QueryAtendimentoDto, @Res() res: Response) {
+    const patient = await this.atendimentoService.getAll(query);
     return res.status(HttpStatus.OK).json(patient);
   }
 }

@@ -8,6 +8,9 @@ export const AppDataSource = new DataSource({
   username: dbEnvs.username,
   password: dbEnvs.password,
   database: dbEnvs.database,
+  // ssl: {
+  //   rejectUnauthorized: false,
+  // },
   entities: [__dirname + '../../../**/**/**/**/**/*.schema{.ts,.js}'],
   migrations: [`${__dirname}/../../migrations/{.ts,*.js}`],
   migrationsRun: true,

@@ -1,6 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { IAtendimentoRepository } from 'src/atendimentos/domain/interfaces/atendimento-repository.interface';
 import { AtendimentoOutputDto } from 'src/atendimentos/presentation/dtos/atendimento-output.dto';
+import { QueryAtendimentoDto } from 'src/atendimentos/presentation/dtos/query-atendimento.dto';
 import { dateToString } from 'src/shared/utils/date-to-string';
 import { formatDateString } from 'src/shared/utils/format-date-string';
 
@@ -12,8 +13,8 @@ export class GetAllAtendimentosUseCase {
     private readonly atendimentoRepository: IAtendimentoRepository,
   ) {}
 
-  async execute(): Promise<AtendimentoOutputDto[]> {
-    const appointments = await this.atendimentoRepository.findAll();
+  async execute(query: QueryAtendimentoDto): Promise<AtendimentoOutputDto[]> {
+    const appointments = await this.atendimentoRepository.findAll(query);
 
     console.log('total appointments -> ', appointments.length);
 

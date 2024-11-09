@@ -14,6 +14,8 @@ export class GetAllMedicosUseCase {
   async execute(): Promise<MedicoOutputDto[]> {
     const drs = await this.medicoRepository.findAll();
 
+    console.log('total drs -> ', drs.length);
+
     return drs.map((dr): MedicoOutputDto => {
       return {
         ...dr,

@@ -14,6 +14,8 @@ export class GetAllPacientesUseCase {
   async execute(): Promise<PacienteOutputDto[]> {
     const patients = await this.pacienteRepository.findAll();
 
+    console.log('total patients -> ', patients.length);
+
     return patients.map((patient): PacienteOutputDto => {
       return {
         ...patient,
